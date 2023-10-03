@@ -174,16 +174,7 @@ func fail(format string, v ...interface{}) {
 }
 
 func findIosTargetPathComponent(target string, configuration string, cordovaVersion string) string {
-	if cordovaVersion == "" {
-		return target
-	}
-
-	majorVersion, err := strconv.Atoi(cordovaVersion[0:1])
-	if err != nil || majorVersion < 7 {
-		// Pre-Cordova-7 behavior: path segment is just "device" or "emulator"
-		return target
-	}
-
+	
 	targetPlatform := "iphonesimulator"
 	if target == "device" {
 		targetPlatform = "iphoneos"
