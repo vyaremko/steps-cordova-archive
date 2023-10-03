@@ -172,7 +172,7 @@ func fail(format string, v ...interface{}) {
 	os.Exit(1)
 }
 
-func findIosTargetPathComponent(target string, configuration string) string {
+func findIosTargetPathComponent(target string) string {
 	
 	targetPlatform := "iphonesimulator"
 	if target == "device" {
