@@ -6,7 +6,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"strconv"
 	"time"
 
 	"github.com/bitrise-io/go-steputils/jsdependency"
@@ -173,14 +172,14 @@ func fail(format string, v ...interface{}) {
 	os.Exit(1)
 }
 
-func findIosTargetPathComponent(target string, configuration string, cordovaVersion string) string {
+func findIosTargetPathComponent(target string, configuration string) string {
 	
 	targetPlatform := "iphonesimulator"
 	if target == "device" {
 		targetPlatform = "iphoneos"
 	}
 
-	return strings.Title(configuration) + "-" + targetPlatform
+	return "Release-" + targetPlatform
 }
 
 func main() {
@@ -313,7 +312,7 @@ func main() {
 	// collect outputs
 	var ipas, apps []string
 	iosOutputDirExist := false
-	iosOutputDir := filepath.Join(workDir, "platforms", "ios", "build", findIosTargetPathComponent(configs.Target, configs.Configuration, configs.CordovaVersion))
+	iosOutputDir := filepath.Join(workDir, "platforms", "ios", "build", findIosTargetPathComponent(configs.Target))
 	if exist, err := pathutil.IsDirExists(iosOutputDir); err != nil {
 		fail("Failed to check if dir (%s) exist, error: %s", iosOutputDir, err)
 	} else if exist {
